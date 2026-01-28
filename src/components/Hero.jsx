@@ -29,7 +29,12 @@ export default function Hero() {
         </div>
         <div className="hero-photo">
           {/* Replace with your actual photo path (e.g., /assets/profile.jpg) */}
-          <img src="/assets/profile.jpg" alt="Profile" className="hero-image" />
+          <img 
+            src="/assets/profile.jpg" 
+            alt="Profile" 
+            className="hero-image"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
         </div>
       </div>
     </section>

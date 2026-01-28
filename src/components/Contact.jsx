@@ -9,7 +9,7 @@ export default function Contact() {
     if (state.succeeded) {
       const timer = setTimeout(() => {
         window.location.href = 'https://forminit.com/thank-you';
-      }, 800);
+      }, 2500);
       return () => clearTimeout(timer);
     }
   }, [state.succeeded]);
@@ -63,7 +63,7 @@ export default function Contact() {
 
         <button type='submit' className="py-2 px-8 w-max flex items-center justify-between gap-2 bg-black/80 text-white rounded-full mx-auto hover:bg-black duration-500 dark:bg-transparent dark:border dark:border-white/50" disabled={state.submitting}>
           {state.submitting ? 'Sending…' : 'Submit now'}
-          <img src="/assets/right-arrow-white.png" alt="" className="w-4" />
+          <img src="/assets/right-arrow-white.png" alt="" className="w-4" aria-hidden="true" />
         </button>
 
         {state.errors && state.errors.length > 0 && (

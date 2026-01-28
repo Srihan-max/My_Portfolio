@@ -166,3 +166,17 @@ a.secondary {
 
 /* Slightly increase section spacing if needed */
 .hero { padding-block: 6rem; }
+
+/* Responsive layout for mobile devices */
+@media (max-width: 768px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .hero-photo {
+    order: -1;
+  }
+  .hero-image {
+    max-width: 280px;
+  }
+}
