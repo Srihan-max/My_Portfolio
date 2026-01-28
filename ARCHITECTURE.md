@@ -231,9 +231,11 @@ Ready for deployment
 To fully migrate to React and remove the HTML files:
 
 ### Step 1: Ensure All Content is in React Components
-- ✅ `src/pages/Home.jsx` → replaces content from index.html
+- ✅ `src/pages/Home.jsx` → serves as the main landing page
 - ✅ `src/pages/About.jsx` → replaces content from about.html
 - ✅ `src/pages/Contact.jsx` → replaces content from contact.html
+- ✅ `src/pages/Experience.jsx` → replaces content from experience.html  
+- ✅ `src/pages/Projects.jsx` → replaces content from projects.html
 - ⚠️ Verify all pages have equivalent React components
 
 ### Step 2: Add React Router
