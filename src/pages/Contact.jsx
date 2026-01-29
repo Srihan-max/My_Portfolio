@@ -1,8 +1,58 @@
-import { useForm, ValidationError } from "@formspree/react";
+import { useCallback, useMemo, useState } from "react";
 
 export default function Contact() {
-  const formId = import.meta.env.VITE_FORMSPREE_FORM_ID || "soxy1vmtjdr";
-  const [state, handleSubmit] = useForm(formId);
+  const formAction = useMemo(
+    () =>
+      import.meta.env.VITE_CONTACT_FORM_ACTION ||
+      "https://app.forminit.com/forms/soxy1vmtjdr",
+    []
+  );
+
+  const [status, setStatus] = useState({
+    submitting: false,
+    succeeded: false,
+    error: null,
+  });
+
+  const handleSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+
+      if (status.submitting) return;
+
+      const form = event.currentTarget;
+      setStatus({ submitting: true, succeeded: false, error: null });
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(formAction, {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Form submission failed (${response.status})`);
+        }
+
+        setStatus({ submitting: false, succeeded: true, error: null });
+        form.reset();
+      } catch (_error) {
+        // If CORS blocks fetch, fall back to a normal browser form POST.
+        try {
+          form.submit();
+          return;
+        } catch {
+          setStatus({
+            submitting: false,
+            succeeded: false,
+            error: "There was a problem sending your message. Please try again.",
+          });
+        }
+      }
+    },
+    [formAction, status.submitting]
+  );
 
   return (
     <div className="container">
@@ -53,46 +103,48 @@ export default function Contact() {
             Send a message
           </h2>
 
-          {state.succeeded ? (
+          {status.succeeded ? (
             <p className="timeline-description" role="status">
               Thanks! Your message has been sent.
             </p>
           ) : (
-            <form className="form" onSubmit={handleSubmit} noValidate>
+            <form
+              className="form"
+              action={formAction}
+              method="POST"
+              onSubmit={handleSubmit}
+              noValidate
+            >
               <input type="hidden" name="_subject" value="New portfolio message" />
 
               <div className="form-grid">
                 <div className="field">
                   <label htmlFor="name">Name</label>
                   <input type="text" id="name" name="name" required />
-                  <ValidationError prefix="Name" field="name" errors={state.errors} />
                 </div>
                 <div className="field">
                   <label htmlFor="email">Email</label>
                   <input type="email" id="email" name="email" required />
-                  <ValidationError prefix="Email" field="email" errors={state.errors} />
                 </div>
               </div>
 
               <div className="field">
                 <label htmlFor="subject">Subject</label>
                 <input type="text" id="subject" name="subject" required />
-                <ValidationError prefix="Subject" field="subject" errors={state.errors} />
               </div>
 
               <div className="field">
                 <label htmlFor="message">Message</label>
                 <textarea id="message" name="message" required rows={6} />
-                <ValidationError prefix="Message" field="message" errors={state.errors} />
               </div>
 
-              <button type="submit" className="cta-button" disabled={state.submitting}>
-                {state.submitting ? "Sending…" : "Send message"}
+              <button type="submit" className="cta-button" disabled={status.submitting}>
+                {status.submitting ? "Sending…" : "Send message"}
               </button>
 
-              {state.errors?.length ? (
+              {status.error ? (
                 <p className="timeline-description" role="alert">
-                  There was a problem sending your message. Please try again.
+                  {status.error}
                 </p>
               ) : null}
             </form>
