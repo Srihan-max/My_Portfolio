@@ -1,95 +1,145 @@
-import React from 'react';
+import { Link } from "react-router-dom";
 
-const About = () => {
-  const highlights = [
-    {
-      icon: '🎓',
-      title: 'Education',
-      description: 'Your educational background and qualifications',
-    },
-    {
-      icon: '💼',
-      title: 'Experience',
-      description: 'Your professional experience and expertise',
-    },
-    {
-      icon: '🚀',
-      title: 'Innovation',
-      description: 'Your approach to technology and innovation',
-    },
-  ];
-
-  const skills = [
-    'Skill 1',
-    'Skill 2',
-    'Skill 3',
-    'Skill 4',
-    'Skill 5',
-  ];
-
-  const hobbies = [
-    { icon: '🎯', name: 'Hobby 1' },
-    { icon: '🎨', name: 'Hobby 2' },
-    { icon: '🎵', name: 'Hobby 3' },
-  ];
-
+export default function About() {
   return (
-    <section className="flex flex-col items-center justify-center min-h-[60vh] bg-darkTheme text-white py-16">
-      <h2 className="text-4xl font-bold mb-4">About</h2>
-      <p className="text-lg text-center max-w-xl">This is a sample about section. Add your professional summary, skills, and experience here. No personal information is displayed.</p>
+    <div className="container">
+      <section>
+        <h1 className="section-title">About Me</h1>
+        <p className="section-subtitle">
+          A little context about who I am, what I&apos;m learning, and what I like to
+          build.
+        </p>
+      </section>
 
-      {/* Highlights */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-        {highlights.map((highlight, index) => (
-          <div
-            key={index}
-            className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-lg text-center hover:shadow-lg transition-shadow"
-          >
-            <div className="text-5xl mb-4">{highlight.icon}</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">
-              {highlight.title}
-            </h3>
-            <p className="text-gray-600">{highlight.description}</p>
-          </div>
-        ))}
-      </div>
+      <section className="glass-card">
+        <h2 className="timeline-title" style={{ marginTop: 0 }}>
+          Professional Introduction
+        </h2>
+        <p className="timeline-description">
+          I&apos;m a Computer Science student with a strong passion for web development
+          and technology. My journey in tech started with curiosity about how
+          websites work, which led me to explore HTML, CSS, and JavaScript.
+        </p>
+        <p className="timeline-description">
+          Over time, I&apos;ve expanded my skills to include WordPress development,
+          database management with SQL, and automation scripting with Python.
+        </p>
+        <p className="timeline-description">
+          Currently, I&apos;m focused on gaining practical industry experience through
+          internships where I can apply my skills, learn from experienced
+          professionals, and contribute to meaningful projects.
+        </p>
+      </section>
 
-      {/* Skills */}
-      <div className="mb-16">
-        <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">
-          Technical Skills
-        </h3>
-        <div className="flex flex-wrap justify-center gap-4">
-          {skills.map((skill, index) => (
-            <span
-              key={index}
-              className="bg-blue-100 text-blue-800 px-6 py-3 rounded-full font-medium hover:bg-blue-200 transition-colors"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      </div>
+      <section style={{ marginTop: "2rem" }}>
+        <h2 className="section-title">Skills &amp; Technologies</h2>
+        <p className="section-subtitle">
+          Tools I use frequently and areas I&apos;m actively growing.
+        </p>
 
-      {/* Hobbies */}
-      <div>
-        <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">
-          Hobbies & Interests
-        </h3>
-        <div className="flex flex-wrap justify-center gap-6">
-          {hobbies.map((hobby, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow"
-            >
-              <span className="text-4xl mb-2">{hobby.icon}</span>
-              <span className="text-gray-700 font-medium">{hobby.name}</span>
+        <div className="grid-2">
+          {[
+            {
+              title: "Web Development",
+              items: [
+                "HTML5 & Semantic Markup",
+                "CSS3 & Responsive Design",
+                "JavaScript (ES6+)",
+                "DOM Manipulation",
+                "Git & Version Control",
+              ],
+            },
+            {
+              title: "WordPress & CMS",
+              items: [
+                "WordPress Setup & Configuration",
+                "Theme Customization",
+                "Plugin Integration",
+                "Basic PHP",
+                "Content Management",
+              ],
+            },
+            {
+              title: "Database & Backend",
+              items: [
+                "SQL Queries & Database Design",
+                "MySQL & phpMyAdmin",
+                "Basic CRUD Operations",
+                "Data Modeling",
+                "Database Optimization",
+              ],
+            },
+            {
+              title: "Python & Automation",
+              items: [
+                "Python Programming",
+                "Automation Scripts",
+                "Data Analysis Basics",
+                "File Processing",
+                "Problem Solving",
+              ],
+            },
+          ].map((group) => (
+            <div key={group.title} className="glass-card">
+              <h3 className="timeline-title" style={{ marginTop: 0 }}>
+                {group.title}
+              </h3>
+              <ul style={{ margin: 0 }}>
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-};
+      </section>
 
-export default About;
+      <section style={{ marginTop: "2rem" }}>
+        <h2 className="section-title">Career Goals</h2>
+        <p className="section-subtitle">Where I&apos;m headed next.</p>
+
+        <div className="grid-2">
+          {[
+            {
+              title: "Immediate Goals",
+              desc: "Secure an internship position in web development, WordPress development, or data-related roles where I can gain hands-on experience working on real projects.",
+            },
+            {
+              title: "Long-term Vision",
+              desc: "Build a strong foundation in full-stack development and data engineering and grow into a versatile developer who can tackle diverse technical challenges.",
+            },
+            {
+              title: "Learning Focus",
+              desc: "Currently expanding my knowledge in modern JavaScript frameworks, RESTful APIs, and advanced database concepts, plus deployment workflows.",
+            },
+            {
+              title: "Industry Exposure",
+              desc: "Seeking opportunities to learn industry standards, agile methodologies, and team collaboration in a professional environment.",
+            },
+          ].map((item) => (
+            <div key={item.title} className="glass-card">
+              <h3 className="timeline-title" style={{ marginTop: 0 }}>
+                {item.title}
+              </h3>
+              <p className="timeline-description">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ marginTop: "2rem" }}>
+        <div className="glass-card">
+          <h2 className="timeline-title" style={{ marginTop: 0 }}>
+            Interested in working together?
+          </h2>
+          <p className="timeline-description">
+            I&apos;m always open to discussing new opportunities and projects.
+          </p>
+          <Link to="/contact" className="cta-button">
+            Get in touch
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+}

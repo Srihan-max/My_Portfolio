@@ -1,39 +1,86 @@
-import React from 'react';
+import { Link } from "react-router-dom";
 
-const Home = () => {
-  const scrollToSection = (sectionId) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+import profileImage from "src/assets/profile.png";
 
+export default function Home() {
   return (
-    <section
-      id="home"
-      className="flex flex-col items-center justify-center min-h-screen bg-darkTheme text-white"
-    >
-      <div className="flex flex-col items-center gap-6">
-        <h2 className="text-2xl font-semibold mt-8">Hi! Welcome 👋</h2>
-        <h1 className="text-6xl font-bold text-center leading-tight">frontend web developer<br />based anywhere.</h1>
-        <p className="text-lg text-center max-w-2xl mt-4">I am a frontend developer with experience in multiple companies. This is a sample portfolio template.</p>
-        <div className="flex gap-6 mt-8">
-          <a
-            href="#contact"
-            className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-500 to-orange-400 text-white font-semibold shadow-lg hover:scale-105 transition"
-          >
-            contact me →
-          </a>
-          <a
-            href="#"
-            className="px-8 py-3 rounded-full bg-white/10 text-white font-semibold shadow-lg hover:scale-105 transition flex items-center gap-2"
-          >
-            my resume <span>↓</span>
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-};
+    <div className="container">
+      <section>
+        <p className="section-subtitle">Hi, I&apos;m in the second year of Computer Science in école d'informatique in Blagnac, France</p>
 
-export default Home;
+        <div className="hero-grid">
+          <div className="hero-photo">
+            <div className="avatar avatar-lg" aria-label="Profile photo">
+              <img
+                src={profileImage}
+                alt="Srihan.V.S.S.PAMPANA"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+              <span className="avatar-fallback" aria-hidden="true">
+                SV
+              </span>
+            </div>
+          </div>
+
+          <div className="hero-copy">
+            <h1 className="section-title">Building clean, responsive web experiences.</h1>
+            <p className="section-subtitle" style={{ marginBottom: 0 }}>
+              Passionate about web development, CRM, cloud services and data. Currently seeking
+              internship opportunities.
+            </p>
+
+            <div className="cta-row">
+              <Link to="/contact" className="cta-button">
+                Get in touch
+              </Link>
+              <Link to="/projects" className="cta-button">
+                View projects
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="grid-3" style={{ marginTop: "1.25rem" }}>
+        <div className="glass-card">
+          <h2 className="timeline-title" style={{ marginTop: 0 }}>
+            What I&apos;m focused on
+          </h2>
+          <p className="timeline-description">
+            Clean structure, accessible UI, and modern front-end workflows. I enjoy
+            turning designs into responsive, polished pages.
+          </p>
+          <div className="tags">
+            {["React", "Vite", "CSS", "WordPress", "SQL", "Python"].map((tag) => (
+              <span key={tag} className="tag">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="glass-card">
+          <h3 className="timeline-title" style={{ marginTop: 0 }}>
+            Internship-ready
+          </h3>
+          <p className="timeline-description" style={{ marginBottom: 0 }}>
+            Available for internships and junior roles. Comfortable collaborating
+            with Git and shipping features iteratively.
+          </p>
+        </div>
+
+        <div className="glass-card">
+          <h3 className="timeline-title" style={{ marginTop: 0 }}>
+            Browse my work
+          </h3>
+          <p className="timeline-description" style={{ marginBottom: 0 }}>
+            Explore selected projects and repositories, including UI builds,
+            WordPress work, and small automation tools.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}

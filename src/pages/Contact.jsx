@@ -1,87 +1,116 @@
-import React, { useState } from 'react';
+import { useForm, ValidationError } from "@formspree/react";
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // In a real application, you would send the form data to a server
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
-    }, 3000);
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const socialLinks = [
-    {
-      name: 'GitHub',
-      url: 'https://github.com/your-username',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-        </svg>
-      ),
-    },
-    {
-      name: 'LinkedIn',
-      url: 'https://linkedin.com/in/your-profile',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-        </svg>
-      ),
-    },
-    {
-      name: 'Twitter',
-      url: 'https://twitter.com/your-handle',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-        </svg>
-      ),
-    },
-    {
-      name: 'Email',
-      url: 'mailto:your-email@example.com',
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-    },
-  ];
+export default function Contact() {
+  const formId = import.meta.env.VITE_FORMSPREE_FORM_ID || "soxy1vmtjdr";
+  const [state, handleSubmit] = useForm(formId);
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-[40vh] bg-darkTheme text-white py-16">
-      <h2 className="text-4xl font-bold mb-4">Contact</h2>
-      <p className="text-lg text-center max-w-xl mb-6">Feel free to reach out for collaborations or inquiries. No personal contact information is displayed.</p>
-      <a href="#" className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-500 to-orange-400 text-white font-semibold shadow-lg hover:scale-105 transition">Contact Form</a>
-    </section>
-  );
-};
+    <div className="container">
+      <section>
+        <h1 className="section-title">Get in touch</h1>
+        <p className="section-subtitle">
+          I&apos;m actively seeking internship opportunities in web development,
+          WordPress, and data-related roles.
+        </p>
+      </section>
 
-export default Contact;
+      <section className="grid-2">
+        <div className="glass-card">
+          <h2 className="timeline-title" style={{ marginTop: 0 }}>
+            Details
+          </h2>
+          <p className="timeline-description">Email: Srihan.v.s@gmail.com</p>
+          <p className="timeline-description">
+            Location: Available for Remote &amp; On-site
+          </p>
+          <p className="timeline-description">Availability: Open to Internships</p>
+
+          <div className="tags">
+            {[
+              { href: "https://github.com/srihan-max/", label: "GitHub" },
+              {
+                href: "https://www.linkedin.com/in/srihan-pampana-80b995381/",
+                label: "LinkedIn",
+              },
+              { href: "mailto:Srihan.v.s@gmail.com", label: "Email" },
+            ].map((item) => (
+              <a
+                key={item.label}
+                className="tag"
+                href={item.href}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                style={{ textDecoration: "none" }}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="glass-card">
+          <h2 className="timeline-title" style={{ marginTop: 0 }}>
+            Send a message
+          </h2>
+
+          {state.succeeded ? (
+            <p className="timeline-description" role="status">
+              Thanks! Your message has been sent.
+            </p>
+          ) : (
+            <form className="form" onSubmit={handleSubmit} noValidate>
+              <input type="hidden" name="_subject" value="New portfolio message" />
+
+              <div className="form-grid">
+                <div className="field">
+                  <label htmlFor="name">Name</label>
+                  <input type="text" id="name" name="name" required />
+                  <ValidationError prefix="Name" field="name" errors={state.errors} />
+                </div>
+                <div className="field">
+                  <label htmlFor="email">Email</label>
+                  <input type="email" id="email" name="email" required />
+                  <ValidationError prefix="Email" field="email" errors={state.errors} />
+                </div>
+              </div>
+
+              <div className="field">
+                <label htmlFor="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required />
+                <ValidationError prefix="Subject" field="subject" errors={state.errors} />
+              </div>
+
+              <div className="field">
+                <label htmlFor="message">Message</label>
+                <textarea id="message" name="message" required rows={6} />
+                <ValidationError prefix="Message" field="message" errors={state.errors} />
+              </div>
+
+              <button type="submit" className="cta-button" disabled={state.submitting}>
+                {state.submitting ? "Sending…" : "Send message"}
+              </button>
+
+              {state.errors?.length ? (
+                <p className="timeline-description" role="alert">
+                  There was a problem sending your message. Please try again.
+                </p>
+              ) : null}
+            </form>
+          )}
+        </div>
+      </section>
+
+      <section style={{ marginTop: "2rem" }}>
+        <div className="glass-card">
+          <h2 className="timeline-title" style={{ marginTop: 0 }}>
+            Looking for opportunities
+          </h2>
+          <p className="timeline-description">
+            I&apos;m currently seeking internship positions where I can contribute my
+            skills in web development, WordPress, SQL, and Python.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}

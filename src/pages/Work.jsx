@@ -1,8 +1,38 @@
-<section className="flex flex-col items-center justify-center min-h-[40vh] bg-darkTheme text-white py-16">
-    <h2 className="text-4xl font-bold mb-4">My Work</h2>
-    <ul className="flex flex-col gap-2 text-lg">
-        <li>Project One – Portfolio Website</li>
-        <li>Project Two – E-commerce Platform</li>
-        <li>Project Three – Dashboard App</li>
-    </ul>
-</section>
+export default function Work() {
+    return (
+        <div className="container">
+            <section>
+                <h1 className="section-title">Work</h1>
+                <p className="section-subtitle">
+                    A few highlights—swap these for real case studies.
+                </p>
+            </section>
+
+            <section className="grid-3">
+                {[
+                    {
+                        title: "Portfolio Website",
+                        desc: "Multi-page React + Vite build with clean layout and navigation.",
+                    },
+                    {
+                        title: "E-commerce UI",
+                        desc: "Product grids, filters, and checkout flows with a responsive design.",
+                    },
+                    {
+                        title: "Dashboard App",
+                        desc: "Data-driven views with reusable components and consistent spacing.",
+                    },
+                ].map((item) => (
+                    <div key={item.title} className="glass-card">
+                        <h2 className="timeline-title" style={{ marginTop: 0 }}>
+                            {item.title}
+                        </h2>
+                        <p className="timeline-description" style={{ marginBottom: 0 }}>
+                            {item.desc}
+                        </p>
+                    </div>
+                ))}
+            </section>
+        </div>
+    );
+}
