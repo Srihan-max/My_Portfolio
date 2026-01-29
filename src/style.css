@@ -10,11 +10,27 @@ body {
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     line-height: 1.6;
     color: #fff;
-    background: radial-gradient(1200px 600px at 50% -10%, rgba(142, 68, 173, 0.35) 0%, transparent 60%),
-        radial-gradient(900px 500px at 90% 10%, rgba(155, 89, 182, 0.25) 0%, transparent 55%),
-        #1e1b2f;
+    background-color: #1e1b2f;
+    background-image: none;
     padding: 0;
     margin: 0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(1200px 700px at 50% -10%, rgba(142, 68, 173, 0.35) 0%, transparent 65%),
+        radial-gradient(1100px 650px at 85% 15%, rgba(155, 89, 182, 0.25) 0%, transparent 70%),
+        radial-gradient(900px 600px at 20% 110%, rgba(142, 68, 173, 0.18) 0%, transparent 70%);
+    filter: blur(80px);
+    opacity: 0.65;
+    transform: translate3d(0, 0, 0);
 }
 
 a {
@@ -101,8 +117,8 @@ ul {
 
 /* Glass cards + grids */
 .glass-card {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(18, 16, 32, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 14px;
     padding: 1.25rem;
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
