@@ -4,7 +4,7 @@ export default function Contact() {
   const formAction = useMemo(
     () =>
       import.meta.env.VITE_CONTACT_FORM_ACTION ||
-      "https://app.forminit.com/forms/soxy1vmtjdr",
+      "https://formspree.io/f/maqjqvnq",
     []
   );
 
@@ -37,18 +37,17 @@ export default function Contact() {
 
         setStatus({ submitting: false, succeeded: true, error: null });
         form.reset();
+
+        // Stay on the same route, but refresh the page state.
+        window.setTimeout(() => {
+          window.location.reload();
+        }, 1200);
       } catch (_error) {
-        // If CORS blocks fetch, fall back to a normal browser form POST.
-        try {
-          form.submit();
-          return;
-        } catch {
-          setStatus({
-            submitting: false,
-            succeeded: false,
-            error: "There was a problem sending your message. Please try again.",
-          });
-        }
+        setStatus({
+          submitting: false,
+          succeeded: false,
+          error: "There was a problem sending your message. Please try again.",
+        });
       }
     },
     [formAction, status.submitting]
